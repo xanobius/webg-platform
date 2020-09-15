@@ -36,7 +36,7 @@ export default {
         getChatMessage: function(){
             console.log('clicked');
             axios.get(this.getUrl).then(e => {
-                this.messages = [...this.messages, ...e.data.messages];
+                this.messages = e.data.messages;
                 window.setTimeout(() => this.getChatMessage(), 5000)
                 // console.log(e.data.messages);
             }).catch(e => console.log(e.message))
