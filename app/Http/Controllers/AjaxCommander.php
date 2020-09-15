@@ -10,4 +10,11 @@ class AjaxCommander extends Controller
     public function receiveChatMessage(ChatMessageRequest $request){
         return $request->get('message');
     }
+
+    public function getChatMessages()
+    {
+        return [
+            'messages' => []
+        ];
+    }
 }

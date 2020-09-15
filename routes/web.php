@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxCommander;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard');
+});
+
+Route::group(['prefix' => 'ajax'], function() {
+    Route::get('getChatMessages/{user}', [AjaxCommander::class, 'getChatMessages'])
+        ->name('ajax.get-chat-messages');
 });

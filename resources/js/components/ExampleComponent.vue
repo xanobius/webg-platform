@@ -6,7 +6,7 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        I'm an example component.
+                        I'm an e
                     </div>
                 </div>
             </div>
@@ -16,6 +16,13 @@
 
 <script>
     export default {
+        props: {
+            userId: {
+                type: Number,
+                default: 0,
+                required: true
+            },
+        },
         mounted() {
             console.log('Component mounted.')
         }
