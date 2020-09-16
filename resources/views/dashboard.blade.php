@@ -7,6 +7,7 @@
             :user-id="{{ $usr->id }}"
             get-url="{{ route('ajax.get-chat-messages', $usr->id) }}"
             group-name="{{ $usr->name }}"
+
         ></group-animation-component>
     @endforeach
 

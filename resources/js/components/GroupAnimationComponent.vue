@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="group-item">
         Gruppe {{ groupName }}
         <ul>
             <li v-for="msg in messages">{{ msg }}</li>
@@ -11,6 +11,10 @@
 <script>
 export default {
     props: {
+        pingFrequency: {
+            type: Number,
+            default: 5000
+        },
         groupName : {
             type: String,
             required: true
@@ -37,7 +41,7 @@ export default {
             console.log('clicked');
             axios.get(this.getUrl).then(e => {
                 this.messages = e.data.messages;
-                window.setTimeout(() => this.getChatMessage(), 5000)
+                window.setTimeout(() => this.getChatMessage(), this.pingFrequency)
                 // console.log(e.data.messages);
             }).catch(e => console.log(e.message))
         },

@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
+Route::get('ajax-client', function(){
+    return view('ajaxclient');
+});
+
 Route::group(['prefix' => 'ajax'], function() {
     Route::get('getChatMessages/{user}', [AjaxCommander::class, 'getChatMessages'])
         ->name('ajax.get-chat-messages');
