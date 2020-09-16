@@ -1,10 +1,14 @@
 <template>
     <div class="group-item">
-        Gruppe {{ groupName }}
-        <ul>
-            <li v-for="msg in messages">{{ msg }}</li>
-        </ul>
-        <button @click="getChatMessage">Get em</button>
+        <strong>Gruppe {{ groupName }}</strong>
+        <div class="row">
+            <div class="col-lg-7"></div>
+            <div class="col-lg-5">
+                <ul class="list-group">
+                    <li v-for="msg in messages" class="list-group-item group-item__chat-message">{{ msg }}</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -30,7 +34,7 @@ export default {
     },
     data() {
         return {
-            'messages' : ['Moin']
+            'messages' : []
         }
     },
     mounted(){
@@ -49,6 +53,18 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+ .group-item {
+     border: 1px solid #000000;
+     border-radius: 10px;
+     margin: 10px;
+     padding: 15px;
+     @media screen and (min-width: 992px){
+         height: 28vh;
+         overflow: hidden;
+     }
+     &__chat-message{
+        word-break: break-word;
+     }
+ }
 </style>

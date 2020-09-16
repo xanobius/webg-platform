@@ -25,7 +25,6 @@ class AjaxCommander extends Controller
                 ->orderBy('created_at', 'DESC')
                 ->limit(5)
                 ->get()
-                ->reverse()
                 ->pluck('message')
         ];
     }

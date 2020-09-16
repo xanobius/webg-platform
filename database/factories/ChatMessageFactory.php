@@ -23,7 +23,7 @@ class ChatMessageFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'message' => $this->faker->text(rand(10, 50))
         ];
     }
 }
