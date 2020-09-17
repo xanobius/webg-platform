@@ -1998,6 +1998,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     pingFrequency: {
@@ -2019,17 +2025,33 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      'messages': []
+      'messages': [],
+      'ball_hover_bg': '#00ff00',
+      'ball_animation_name': 'example',
+      'ball_animation_duration': '10s',
+      'ball_animation_endH': '0',
+      'ball_animation_endV': '0'
     };
   },
   mounted: function mounted() {
     this.getChatMessage();
   },
+  computed: {
+    style: function style() {
+      return {
+        '--ball_hover_bg': this.ball_hover_bg,
+        '--ball_animation_name': this.ball_animation_name,
+        '--ball_animation_duration': this.ball_animation_duration,
+        '--ball_animation_endH': this.ball_animation_endH,
+        '--ball_animation_endV': this.ball_animation_endV,
+        '--ball-animation-70': 'background-color: #0000ff'
+      };
+    }
+  },
   methods: {
     getChatMessage: function getChatMessage() {
       var _this = this;
 
-      console.log('clicked');
       axios.get(this.getUrl).then(function (e) {
         _this.messages = e.data.messages;
         window.setTimeout(function () {
@@ -6476,7 +6498,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".group-item[data-v-000a5a1d] {\n  border: 1px solid #000000;\n  border-radius: 10px;\n  margin: 10px;\n  padding: 15px;\n}\n@media screen and (min-width: 992px) {\n.group-item[data-v-000a5a1d] {\n    height: 28vh;\n    overflow: hidden;\n}\n}\n.group-item__chat-message[data-v-000a5a1d] {\n  word-break: break-word;\n}", ""]);
+exports.push([module.i, ".group-item[data-v-000a5a1d] {\n  background-color: #d7d6d6;\n  border: 1px solid #000000;\n  border-radius: 10px;\n  margin: 10px;\n  padding: 15px;\n}\n@media screen and (min-width: 992px) {\n.group-item[data-v-000a5a1d] {\n    height: 28vh;\n    overflow: hidden;\n}\n}\n.group-item__chat-message[data-v-000a5a1d] {\n  word-break: break-word;\n}\n.group-item__ball[data-v-000a5a1d] {\n  background-color: red;\n  width: 2rem;\n  height: 2rem;\n  border-radius: 1rem;\n  border: 1px solid #555555;\n  -webkit-animation-name: example-data-v-000a5a1d;\n          animation-name: example-data-v-000a5a1d;\n  -webkit-animation-duration: var(--ball_animation_duration);\n          animation-duration: var(--ball_animation_duration);\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n}\n.group-item__ball[data-v-000a5a1d]:hover {\n  background-color: var(--ball_hover_bg);\n}\n@-webkit-keyframes example-data-v-000a5a1d {\n0% {\n    background-color: #fffbd6;\n    margin-top: 0;\n    margin-left: 125px;\n}\n20% {\n    background-color: #9cd4b0;\n    margin-top: 80px;\n    margin-left: 20px;\n}\n40% {\n    background-color: #f9ac90;\n    margin-top: 160px;\n    margin-left: 100px;\n}\n60% {\n    background-color: #ccc3c0;\n    margin-top: 160px;\n    margin-left: 150px;\n}\n80% {\n    background-color: #abe1fa;\n    margin-top: 80px;\n    margin-left: 200px;\n}\n100% {\n    background-color: #fffbd6;\n    margin-top: 0;\n    margin-left: 125px;\n}\n}\n@keyframes example-data-v-000a5a1d {\n0% {\n    background-color: #fffbd6;\n    margin-top: 0;\n    margin-left: 125px;\n}\n20% {\n    background-color: #9cd4b0;\n    margin-top: 80px;\n    margin-left: 20px;\n}\n40% {\n    background-color: #f9ac90;\n    margin-top: 160px;\n    margin-left: 100px;\n}\n60% {\n    background-color: #ccc3c0;\n    margin-top: 160px;\n    margin-left: 150px;\n}\n80% {\n    background-color: #abe1fa;\n    margin-top: 80px;\n    margin-left: 200px;\n}\n100% {\n    background-color: #fffbd6;\n    margin-top: 0;\n    margin-left: 125px;\n}\n}\n.group-item .chat-item[data-v-000a5a1d] {\n  display: inline-block;\n  margin-right: 10px;\n}\n.group-item .chat-enter-active[data-v-000a5a1d], .group-item .chat-leave-active[data-v-000a5a1d] {\n  transition: all 1s;\n}\n.group-item .chat-enter[data-v-000a5a1d], .group-item .chat-leave-to[data-v-000a5a1d] {\n  opacity: 0;\n  transform: translateY(30px);\n}", ""]);
 
 // exports
 
@@ -38408,7 +38430,9 @@ var render = function() {
     _c("strong", [_vm._v("Gruppe " + _vm._s(_vm.groupName))]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-7" }),
+      _c("div", { staticClass: "col-lg-7" }, [
+        _c("div", { staticClass: "group-item__ball", style: _vm.style })
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-lg-5" }, [
         _c(
@@ -38417,7 +38441,11 @@ var render = function() {
           _vm._l(_vm.messages, function(msg) {
             return _c(
               "li",
-              { staticClass: "list-group-item group-item__chat-message" },
+              {
+                key: msg,
+                staticClass:
+                  "list-group-item group-item__chat-message chat-item"
+              },
               [_vm._v(_vm._s(msg))]
             )
           }),
