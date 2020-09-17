@@ -38,14 +38,15 @@ export default {
     },
     data() {
         return {
+            'version' : 0,
             'messages' : [],
 
             'ball_animation_name' : 'mtg',
             'ball_animation_duration' : '5s',
 
-            'ball_bgcs' : ['#fffbd6', '#9cd4b0', '#f9ac90', '#ccc3c0', '#abe1fa'],
-            'ball_hor' : ['120px', '20px', '80px', '160px', '220px'],
-            'ball_ver' : ['0px', '80px', '160px', '160px', '80px'],
+            'ball_bgcs' : ['#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000'],
+            'ball_hor' : ['0', '0', '0', '0', '0'],
+            'ball_ver' : ['0', '0', '0', '0', '0'],
         }
     },
     mounted(){
@@ -58,6 +59,7 @@ export default {
                 '--ball_ver' : this.ball_ver[0],
                 '--ball_hor' : this.ball_hor[0],
 
+                '--ball_animation_name' : this.ball_animation_name,
                 '--ball_animation_duration' : this.ball_animation_duration,
 
                 '--ball_ver_20' : this.ball_ver[1],
@@ -75,6 +77,7 @@ export default {
                 '--ball_ver_80' : this.ball_ver[4],
                 '--ball_hor_80' : this.ball_hor[4],
                 '--ball_color_80' : this.ball_bgcs[4],
+                'version' : this.version
             }
         }
     },
@@ -82,10 +85,31 @@ export default {
         getChatMessage: function(){
             axios.get(this.getUrl).then(e => {
                 this.messages = e.data.messages;
+                this.assignCssData(e.data.cssData);
                 window.setTimeout(() => this.getChatMessage(), this.pingFrequency)
                 // console.log(e.data.messages);
             }).catch(e => console.log(e.message))
         },
+        assignCssData: function(data){
+            if(data.length == 0) return;
+
+            data.forEach(css => {
+                console.log('in each');
+                if(css.type == 0){
+                    this.ball_animation_duration = css.value;
+                }
+                if(css.type == 1){
+                    this.ball_bgcs[css.order] = css.value;
+                }
+                if(css.type == 2){
+                    this.ball_hor[css.order] = css.value;
+                }
+                if(css.type == 3){
+                    this.ball_ver[css.order] = css.value;
+                }
+            });
+            this.version++;
+        }
     },
 }
 </script>

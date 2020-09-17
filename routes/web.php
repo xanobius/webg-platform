@@ -23,6 +23,6 @@ Route::get('ajax-client', function(){
 });
 
 Route::group(['prefix' => 'ajax'], function() {
-    Route::get('getChatMessages/{user}', [AjaxCommander::class, 'getChatMessages'])
-        ->name('ajax.get-chat-messages');
+    Route::get('getChatMessages/{user}', [AjaxCommander::class, 'getAjaxData'])
+        ->name('ajax.get-ajax-data');
 });

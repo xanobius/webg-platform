@@ -1943,21 +1943,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AjaxClient.vue",
+  props: {
+    baseUrl: {
+      type: String,
+      required: true
+    }
+  },
   data: function data() {
     return {
-      'url': 'http://webg.test/api/sendMessage',
       'token': '',
       'chatMessage': '',
-      'error': ''
+      'error': '',
+      'cssAttribute': {
+        'value': '',
+        'type': 0,
+        'order': 0
+      }
     };
   },
   methods: {
     sendChat: function sendChat() {
       var _this = this;
 
-      axios.post(this.url, {
+      axios.post('http://webg.test/api/sendMessage', {
         'message': this.chatMessage
       }, {
         headers: {
@@ -1968,6 +2004,23 @@ __webpack_require__.r(__webpack_exports__);
         _this.error = '';
       })["catch"](function (e) {
         _this.error = e;
+      });
+    },
+    setCssAttribute: function setCssAttribute() {
+      var _this2 = this;
+
+      axios.post(this.baseUrl + '/setCssAttribute', {
+        'value': this.cssAttribute.value,
+        'order': this.cssAttribute.order,
+        'type': this.cssAttribute.type
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + this.token
+        }
+      }).then(function (e) {
+        _this2.error = '';
+      })["catch"](function (e) {
+        _this2.error = e;
       });
     }
   }
@@ -2023,12 +2076,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      'version': 0,
       'messages': [],
       'ball_animation_name': 'mtg',
       'ball_animation_duration': '5s',
-      'ball_bgcs': ['#fffbd6', '#9cd4b0', '#f9ac90', '#ccc3c0', '#abe1fa'],
-      'ball_hor': ['120px', '20px', '80px', '160px', '220px'],
-      'ball_ver': ['0px', '80px', '160px', '160px', '80px']
+      'ball_bgcs': ['#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000'],
+      'ball_hor': ['0', '0', '0', '0', '0'],
+      'ball_ver': ['0', '0', '0', '0', '0']
     };
   },
   mounted: function mounted() {
@@ -2040,6 +2094,7 @@ __webpack_require__.r(__webpack_exports__);
         '--ball_bg': this.ball_bgcs[0],
         '--ball_ver': this.ball_ver[0],
         '--ball_hor': this.ball_hor[0],
+        '--ball_animation_name': this.ball_animation_name,
         '--ball_animation_duration': this.ball_animation_duration,
         '--ball_ver_20': this.ball_ver[1],
         '--ball_hor_20': this.ball_hor[1],
@@ -2052,7 +2107,8 @@ __webpack_require__.r(__webpack_exports__);
         '--ball_color_60': this.ball_bgcs[3],
         '--ball_ver_80': this.ball_ver[4],
         '--ball_hor_80': this.ball_hor[4],
-        '--ball_color_80': this.ball_bgcs[4]
+        '--ball_color_80': this.ball_bgcs[4],
+        'version': this.version
       };
     }
   },
@@ -2062,12 +2118,40 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(this.getUrl).then(function (e) {
         _this.messages = e.data.messages;
+
+        _this.assignCssData(e.data.cssData);
+
         window.setTimeout(function () {
           return _this.getChatMessage();
         }, _this.pingFrequency); // console.log(e.data.messages);
       })["catch"](function (e) {
         return console.log(e.message);
       });
+    },
+    assignCssData: function assignCssData(data) {
+      var _this2 = this;
+
+      if (data.length == 0) return;
+      data.forEach(function (css) {
+        console.log('in each');
+
+        if (css.type == 0) {
+          _this2.ball_animation_duration = css.value;
+        }
+
+        if (css.type == 1) {
+          _this2.ball_bgcs[css.order] = css.value;
+        }
+
+        if (css.type == 2) {
+          _this2.ball_hor[css.order] = css.value;
+        }
+
+        if (css.type == 3) {
+          _this2.ball_ver[css.order] = css.value;
+        }
+      });
+      this.version++;
     }
   }
 });
@@ -38309,34 +38393,6 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-6" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "url" } }, [_vm._v("Endpoint")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.url,
-                expression: "url"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", id: "url" },
-            domProps: { value: _vm.url },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.url = $event.target.value
-              }
-            }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-6" }, [
-        _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "token" } }, [_vm._v("Token")]),
           _vm._v(" "),
           _c("input", {
@@ -38399,6 +38455,139 @@ var render = function() {
               }
             }
           })
+        ]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn btn-success" }, [_vm._v("Send")])
+      ]
+    ),
+    _vm._v(" "),
+    _vm.error
+      ? _c("div", { staticClass: "error" }, [
+          _vm._v("\n        " + _vm._s(_vm.error) + "\n    ")
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("h2", [_vm._v("Set Attribute")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        attrs: { action: "#" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.setCssAttribute($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.cssAttribute.type,
+                      expression: "cssAttribute.type"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.cssAttribute,
+                        "type",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "0" } }, [
+                    _vm._v("Animation Duration")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "1" } }, [
+                    _vm._v("Background Color")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "2" } }, [
+                    _vm._v("Margin Left")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "3" } }, [
+                    _vm._v("Margin Right")
+                  ])
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.cssAttribute.order,
+                    expression: "cssAttribute.order"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number", placeholder: "order" },
+                domProps: { value: _vm.cssAttribute.order },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.cssAttribute, "order", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.cssAttribute.value,
+                    expression: "cssAttribute.value"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "value" },
+                domProps: { value: _vm.cssAttribute.value },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.cssAttribute, "value", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("button", { staticClass: "btn btn-success" }, [_vm._v("Send")])

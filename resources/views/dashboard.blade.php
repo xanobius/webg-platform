@@ -8,7 +8,7 @@
                 <div class="col-lg-4">
                     <group-animation-component
                         :user-id="{{ $usr->id }}"
-                        get-url="{{ route('ajax.get-chat-messages', $usr->id) }}"
+                        get-url="{{ route('ajax.get-ajax-data', $usr->id) }}"
                         group-name="{{ $usr->name }}"
                     ></group-animation-component>
                 </div>
