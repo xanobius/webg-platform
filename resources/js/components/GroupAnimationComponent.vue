@@ -9,9 +9,7 @@
             </div>
             <div class="col-lg-5">
                 <ul class="list-group">
-<!--                    <transition-group  name="chat" tag="c">-->
-                        <li v-for="msg in messages" v-bind:key="msg" class="list-group-item group-item__chat-message chat-item">{{ msg }}</li>
-<!--                    </transition-group>-->
+                    <li v-for="msg in messages" v-bind:key="msg" class="list-group-item group-item__chat-message chat-item">{{ msg }}</li>
                 </ul>
             </div>
         </div>
@@ -41,11 +39,13 @@ export default {
     data() {
         return {
             'messages' : [],
-            'ball_hover_bg' : '#00ff00',
-            'ball_animation_name' : 'example',
-            'ball_animation_duration' : '10s',
-            'ball_animation_endH' : '0',
-            'ball_animation_endV' : '0',
+
+            'ball_animation_name' : 'mtg',
+            'ball_animation_duration' : '5s',
+
+            'ball_bgcs' : ['#fffbd6', '#9cd4b0', '#f9ac90', '#ccc3c0', '#abe1fa'],
+            'ball_hor' : ['120px', '20px', '80px', '160px', '220px'],
+            'ball_ver' : ['0px', '80px', '160px', '160px', '80px'],
         }
     },
     mounted(){
@@ -54,12 +54,27 @@ export default {
     computed: {
         style() {
             return {
-                '--ball_hover_bg' : this.ball_hover_bg,
-                '--ball_animation_name' : this.ball_animation_name,
+                '--ball_bg' : this.ball_bgcs[0],
+                '--ball_ver' : this.ball_ver[0],
+                '--ball_hor' : this.ball_hor[0],
+
                 '--ball_animation_duration' : this.ball_animation_duration,
-                '--ball_animation_endH' : this.ball_animation_endH,
-                '--ball_animation_endV' : this.ball_animation_endV,
-                '--ball-animation-70' : 'background-color: #0000ff'
+
+                '--ball_ver_20' : this.ball_ver[1],
+                '--ball_hor_20' : this.ball_hor[1],
+                '--ball_color_20' : this.ball_bgcs[1],
+
+                '--ball_ver_40' : this.ball_ver[2],
+                '--ball_hor_40' : this.ball_hor[2],
+                '--ball_color_40' : this.ball_bgcs[2],
+
+                '--ball_ver_60' : this.ball_ver[3],
+                '--ball_hor_60' : this.ball_hor[3],
+                '--ball_color_60' : this.ball_bgcs[3],
+
+                '--ball_ver_80' : this.ball_ver[4],
+                '--ball_hor_80' : this.ball_hor[4],
+                '--ball_color_80' : this.ball_bgcs[4],
             }
         }
     },
@@ -96,7 +111,7 @@ export default {
          height: 2rem;
          border-radius: 1rem;
          border: 1px solid #555555;
-         animation-name: example;
+         animation-name: mtg;
          animation-duration: var(--ball_animation_duration);
          animation-iteration-count: infinite;
      }
@@ -105,37 +120,36 @@ export default {
          background-color: var(--ball_hover_bg);
      }
 
-     @keyframes example {
+     @keyframes mtg {
          0% {
-             background-color: #fffbd6; // white
-             margin-top: 0;
-             margin-left: 125px;
+             background-color: var(--ball_bg); // white
+             margin-top: var(--ball_ver);
+             margin-left: var(--ball_hor);
          }
          20% {
-             background-color: #9cd4b0; //green
-             margin-top: 80px;
-             margin-left: 20px;
+             background-color: var(--ball_color_20); //green
+             margin-top: var(--ball_ver_20);
+             margin-left: var(--ball_hor_20);
          }
          40% {
-             background-color: #f9ac90; // red
-             margin-top: 160px;
-             margin-left: 100px;
+             background-color: var(--ball_color_40); // red
+             margin-top: var(--ball_ver_40);
+             margin-left: var(--ball_hor_40);
          }
          60% {
-             background-color: #ccc3c0; // black
-             margin-top: 160px;
-             margin-left: 150px;
-
+             background-color: var(--ball_color_60); // black
+             margin-top: var(--ball_ver_60);
+             margin-left: var(--ball_hor_60);
          }
          80% {
-             background-color: #abe1fa; // blue
-             margin-top: 80px;
-             margin-left: 200px;
+             background-color: var(--ball_color_80); // blue
+             margin-top: var(--ball_ver_80);
+             margin-left: var(--ball_hor_80);
          }
          100% {
-             background-color: #fffbd6; // white
-             margin-top: 0;
-             margin-left: 125px;
+             background-color: var(--ball_bg); // white
+             margin-top: var(--ball_ver);
+             margin-left: var(--ball_hor);
          }
      }
 
