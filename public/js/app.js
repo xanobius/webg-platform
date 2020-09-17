@@ -38530,7 +38530,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("option", { attrs: { value: "3" } }, [
-                    _vm._v("Margin Right")
+                    _vm._v("Margin Top")
                   ])
                 ]
               )

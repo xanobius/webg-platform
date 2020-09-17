@@ -35,7 +35,7 @@
                             <option value="0">Animation Duration</option>
                             <option value="1">Background Color</option>
                             <option value="2">Margin Left</option>
-                            <option value="3">Margin Right</option>
+                            <option value="3">Margin Top</option>
                         </select>
                     </div>
                 </div>
