@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxCommander;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
+});
+
+Route::get('ajax-client', function(){
+    return view('ajaxclient');
+});
+
+Route::group(['prefix' => 'ajax'], function() {
+    Route::get('getChatMessages/{user}', [AjaxCommander::class, 'getAjaxData'])
+        ->name('ajax.get-ajax-data');
 });
