@@ -2153,11 +2153,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     connectToWebsocket: function connectToWebsocket() {
       var _this = this;
 
-      console.log("fire at ws://" + this.wsUrl + "?token=" + this.userId);
       this.ws_con = new WebSocket("ws://" + this.wsUrl + "?token=" + this.userId);
 
       this.ws_con.onmessage = function (event) {
-        _this.ws_chats = [event.data].concat(_toConsumableArray(_this.ws_chats)); // this.ws_chats.push(event.data);
+        _this.ws_chats = [event.data].concat(_toConsumableArray(_this.ws_chats));
       };
 
       this.ws_con.onopen = function (event) {
@@ -2170,11 +2169,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       };
     },
     modeChange: function modeChange() {
-      if (this.ajax && !this.ws_con) {
-        this.connectToWebsocket();
-      }
-
+      if (this.ajax && this.ws_con) this.connectToWebsocket();
       this.ajax = !this.ajax;
+      if (this.ajax) this.getChatMessage();
     },
     getChatMessage: function getChatMessage() {
       var _this2 = this;
@@ -2187,7 +2184,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
         window.setTimeout(function () {
           return _this2.getChatMessage();
-        }, _this2.pingFrequency); // console.log(e.data.messages);
+        }, _this2.pingFrequency);
       })["catch"](function (e) {
         return console.log(e.message);
       });
@@ -2197,8 +2194,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       if (data.length == 0) return;
       data.forEach(function (css) {
-        console.log('in each');
-
         if (css.type == 0) {
           _this3.ball_animation_duration = css.value;
         }
@@ -44835,7 +44830,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "group-item" }, [
-    _c("strong", [_vm._v("Gruppe " + _vm._s(_vm.groupName))]),
+    _c("strong", [_vm._v(_vm._s(_vm.groupName))]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-7" }, [

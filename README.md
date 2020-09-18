@@ -2,6 +2,10 @@
 
 Little platform to which students can connect and manipulate their own sandbox
 
+## 0.2.1
+
+Correct texts and reenable ajax pingig after mode switching
+
 ## 0.2.0
 
 Added websocket functionality
