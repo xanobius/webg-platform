@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Zurich',
 
     /*
     |--------------------------------------------------------------------------
@@ -228,5 +228,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+
+        // Request frequency in milliseconds
+    'ajax_ping_frequency' => env('AJAX_PING_FREQUENCY', 5000)
 
 ];

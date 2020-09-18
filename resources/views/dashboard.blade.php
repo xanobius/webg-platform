@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1>WebG Group Dashboard</h1>
+        <h1>WebE HS-2020 Group Dashboard</h1>
         <div class="row">
             @foreach(\App\Models\User::get() as $usr)
                 <div class="col-lg-4">
@@ -11,6 +11,7 @@
                         get-url="{{ route('ajax.get-ajax-data', $usr->id) }}"
                         ws-url="{{ env('WS_URL') }}"
                         group-name="{{ $usr->name }}"
+                        :ping-frequency="{{ config('app.ajax_ping_frequency') }}"
                     ></group-animation-component>
                 </div>
             @endforeach

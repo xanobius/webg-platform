@@ -1,6 +1,6 @@
 <template>
     <div class="group-item">
-        <strong>Gruppe {{ groupName }}</strong>
+        <strong>{{ groupName }}</strong>
         <div class="row">
             <div class="col-lg-7">
 
@@ -110,14 +110,10 @@ export default {
     },
     methods: {
         connectToWebsocket: function () {
-            console.log("fire at ws://" + this.wsUrl + "?token=" + this.userId);
-
             this.ws_con = new WebSocket("ws://" + this.wsUrl + "?token=" + this.userId);
-
 
             this.ws_con.onmessage = event => {
                 this.ws_chats = [event.data, ...this.ws_chats];
-                // this.ws_chats.push(event.data);
             }
 
             this.ws_con.onopen =event => {
@@ -130,10 +126,13 @@ export default {
             }
         },
         modeChange: function() {
-            if (this.ajax && ! this.ws_con) {
-                this.connectToWebsocket();
-            }
+            if (this.ajax && this.ws_con)
+                this.connectToWebsocket()
+
             this.ajax = !this.ajax;
+
+            if(this.ajax)
+                this.getChatMessage()
         },
         getChatMessage: function(){
             if ( ! this.ajax)  return;
@@ -141,14 +140,12 @@ export default {
                 this.messages = e.data.messages;
                 this.assignCssData(e.data.cssData);
                 window.setTimeout(() => this.getChatMessage(), this.pingFrequency)
-                // console.log(e.data.messages);
             }).catch(e => console.log(e.message))
         },
         assignCssData: function(data){
             if(data.length == 0) return;
 
             data.forEach(css => {
-                console.log('in each');
                 if(css.type == 0){
                     this.ball_animation_duration = css.value;
                 }
