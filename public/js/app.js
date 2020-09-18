@@ -2037,6 +2037,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 //
 //
 //
@@ -2080,11 +2092,18 @@ __webpack_require__.r(__webpack_exports__);
     getUrl: {
       type: String,
       required: true
+    },
+    wsUrl: {
+      type: String,
+      required: true
     }
   },
   data: function data() {
     return {
-      'ajax': false,
+      'ws_con': null,
+      'ws_chats': [],
+      'connected': false,
+      'ajax': true,
       'version': 0,
       'messages': [],
       'ball_animation_name': 'mtg',
@@ -2098,6 +2117,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getChatMessage();
   },
   computed: {
+    ws_connection: function ws_connection() {
+      return this.ajax ? '' : this.connected ? '(ok)' : '(nok)';
+    },
     modeswitch_id: function modeswitch_id() {
       return 'modeswitch_' + this.userId;
     },
@@ -2128,45 +2150,69 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    connectToWebsocket: function connectToWebsocket() {
+      var _this = this;
+
+      console.log("fire at ws://" + this.wsUrl + "?token=" + this.userId);
+      this.ws_con = new WebSocket("ws://" + this.wsUrl + "?token=" + this.userId);
+
+      this.ws_con.onmessage = function (event) {
+        _this.ws_chats = [event.data].concat(_toConsumableArray(_this.ws_chats)); // this.ws_chats.push(event.data);
+      };
+
+      this.ws_con.onopen = function (event) {
+        _this.connected = true;
+      };
+
+      this.ws_con.onclose = function (event) {
+        _this.connected = false;
+        _this.ws_con = null;
+      };
+    },
     modeChange: function modeChange() {
+      if (this.ajax && !this.ws_con) {
+        this.connectToWebsocket();
+      }
+
       this.ajax = !this.ajax;
     },
     getChatMessage: function getChatMessage() {
-      var _this = this;
+      var _this2 = this;
 
+      if (!this.ajax) return;
       axios.get(this.getUrl).then(function (e) {
-        _this.messages = e.data.messages;
+        _this2.messages = e.data.messages;
 
-        _this.assignCssData(e.data.cssData);
+        _this2.assignCssData(e.data.cssData);
 
         window.setTimeout(function () {
-          return _this.getChatMessage();
-        }, _this.pingFrequency); // console.log(e.data.messages);
+          return _this2.getChatMessage();
+        }, _this2.pingFrequency); // console.log(e.data.messages);
       })["catch"](function (e) {
         return console.log(e.message);
       });
     },
     assignCssData: function assignCssData(data) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (data.length == 0) return;
       data.forEach(function (css) {
         console.log('in each');
 
         if (css.type == 0) {
-          _this2.ball_animation_duration = css.value;
+          _this3.ball_animation_duration = css.value;
         }
 
         if (css.type == 1) {
-          _this2.ball_bgcs[css.order] = css.value;
+          _this3.ball_bgcs[css.order] = css.value;
         }
 
         if (css.type == 2) {
-          _this2.ball_hor[css.order] = css.value;
+          _this3.ball_hor[css.order] = css.value;
         }
 
         if (css.type == 3) {
-          _this2.ball_ver[css.order] = css.value;
+          _this3.ball_ver[css.order] = css.value;
         }
       });
       this.version++;
@@ -44846,6 +44892,8 @@ var render = function() {
               _vm._v(
                 "\n                    " +
                   _vm._s(_vm.mode_label) +
+                  " " +
+                  _vm._s(_vm.ws_connection) +
                   "\n                "
               )
             ]
@@ -44870,7 +44918,18 @@ var render = function() {
                 : _vm._e()
             }),
             _vm._v(" "),
-            !_vm.ajax ? _c("li") : _vm._e()
+            _vm._l(_vm.ws_chats, function(msg) {
+              return !_vm.ajax
+                ? _c(
+                    "li",
+                    {
+                      staticClass:
+                        "list-group-item group-item__chat-message chat-item"
+                    },
+                    [_vm._v(_vm._s(msg))]
+                  )
+                : _vm._e()
+            })
           ],
           2
         )

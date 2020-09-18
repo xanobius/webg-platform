@@ -11,13 +11,13 @@
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" :id="modeswitch_id" v-model="ajax" @click="modeChange">
                     <label class="custom-control-label" :for="modeswitch_id">
-                        {{ mode_label }}
+                        {{ mode_label }} {{ ws_connection }}
                     </label>
                 </div>
                 <ul class="list-group">
                     <li v-if="ajax" v-for="msg in messages" v-bind:key="msg" class="list-group-item group-item__chat-message chat-item">{{ msg }}</li>
 
-                    <li v-if="! ajax"></li>
+                    <li v-if="! ajax" v-for="msg in ws_chats" class="list-group-item group-item__chat-message chat-item">{{ msg }}</li>
                 </ul>
             </div>
         </div>
@@ -42,11 +42,18 @@ export default {
         getUrl: {
             type: String,
             required: true
+        },
+        wsUrl : {
+            type: String,
+            required: true
         }
     },
     data() {
         return {
-            'ajax' : false,
+            'ws_con' : null,
+            'ws_chats' : [],
+            'connected' : false,
+            'ajax' : true,
             'version' : 0,
             'messages' : [],
 
@@ -62,6 +69,11 @@ export default {
         this.getChatMessage();
     },
     computed: {
+        ws_connection(){
+            return this.ajax ? '' : (
+                this.connected ? '(ok)' : '(nok)'
+            )
+        },
         modeswitch_id(){
             return 'modeswitch_' + this.userId;
         },
@@ -97,10 +109,34 @@ export default {
         }
     },
     methods: {
+        connectToWebsocket: function () {
+            console.log("fire at ws://" + this.wsUrl + "?token=" + this.userId);
+
+            this.ws_con = new WebSocket("ws://" + this.wsUrl + "?token=" + this.userId);
+
+
+            this.ws_con.onmessage = event => {
+                this.ws_chats = [event.data, ...this.ws_chats];
+                // this.ws_chats.push(event.data);
+            }
+
+            this.ws_con.onopen =event => {
+                this.connected = true;
+            }
+
+            this.ws_con.onclose = event => {
+                this.connected = false;
+                this.ws_con = null;
+            }
+        },
         modeChange: function() {
+            if (this.ajax && ! this.ws_con) {
+                this.connectToWebsocket();
+            }
             this.ajax = !this.ajax;
         },
         getChatMessage: function(){
+            if ( ! this.ajax)  return;
             axios.get(this.getUrl).then(e => {
                 this.messages = e.data.messages;
                 this.assignCssData(e.data.cssData);

@@ -58,6 +58,7 @@ export default {
 
             this.connection.onclose = event => {
                 this.connected = false;
+
             }
         },
         sendText() {
