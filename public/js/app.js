@@ -2169,7 +2169,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       };
     },
     modeChange: function modeChange() {
-      if (this.ajax && this.ws_con) this.connectToWebsocket();
+      if (this.ajax && !this.ws_con) this.connectToWebsocket();
       this.ajax = !this.ajax;
       if (this.ajax) this.getChatMessage();
     },
