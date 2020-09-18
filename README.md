@@ -2,6 +2,10 @@
 
 Little platform to which students can connect and manipulate their own sandbox
 
+## 0.2.0
+
+Added websocket functionality
+
 ## 0.1.0
 
 Basic Version, supports ajax clients for every user in a frontend sandbox.

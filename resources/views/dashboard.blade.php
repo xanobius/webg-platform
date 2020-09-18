@@ -9,6 +9,7 @@
                     <group-animation-component
                         :user-id="{{ $usr->id }}"
                         get-url="{{ route('ajax.get-ajax-data', $usr->id) }}"
+                        ws-url="{{ env('WS_URL') }}"
                         group-name="{{ $usr->name }}"
                     ></group-animation-component>
                 </div>

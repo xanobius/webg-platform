@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AjaxCommander;
 use Illuminate\Support\Facades\Route;
+use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+WebSocketsRouter::webSocket('/socket', \App\DashboardWebsocketHandler::class);
+
 Route::get('/', function () {
     return view('dashboard');
 });
 
 Route::get('ajax-client', function(){
     return view('ajaxclient');
+});
+Route::get('websocket-client', function(){
+    return view('websocketclient');
 });
 
 Route::group(['prefix' => 'ajax'], function() {
