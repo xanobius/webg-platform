@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('group-animation-component', require('./components/GroupAnimationComponent').default);
 Vue.component('ajax-client', require('./components/AjaxClient').default);
+Vue.component('websocket-client', require('./components/WebsocketClient').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

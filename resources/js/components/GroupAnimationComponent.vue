@@ -8,8 +8,16 @@
                 </div>
             </div>
             <div class="col-lg-5">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" :id="modeswitch_id" v-model="ajax" @click="modeChange">
+                    <label class="custom-control-label" :for="modeswitch_id">
+                        {{ mode_label }}
+                    </label>
+                </div>
                 <ul class="list-group">
-                    <li v-for="msg in messages" v-bind:key="msg" class="list-group-item group-item__chat-message chat-item">{{ msg }}</li>
+                    <li v-if="ajax" v-for="msg in messages" v-bind:key="msg" class="list-group-item group-item__chat-message chat-item">{{ msg }}</li>
+
+                    <li v-if="! ajax"></li>
                 </ul>
             </div>
         </div>
@@ -38,6 +46,7 @@ export default {
     },
     data() {
         return {
+            'ajax' : false,
             'version' : 0,
             'messages' : [],
 
@@ -53,6 +62,12 @@ export default {
         this.getChatMessage();
     },
     computed: {
+        modeswitch_id(){
+            return 'modeswitch_' + this.userId;
+        },
+        mode_label() {
+            return this.ajax ? 'Ajax Mode' : 'Websocket Mode';
+        },
         style() {
             return {
                 '--ball_bg' : this.ball_bgcs[0],
@@ -82,6 +97,9 @@ export default {
         }
     },
     methods: {
+        modeChange: function() {
+            this.ajax = !this.ajax;
+        },
         getChatMessage: function(){
             axios.get(this.getUrl).then(e => {
                 this.messages = e.data.messages;
