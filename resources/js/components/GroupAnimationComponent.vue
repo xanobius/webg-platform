@@ -126,7 +126,7 @@ export default {
             }
         },
         modeChange: function() {
-            if (this.ajax && this.ws_con)
+            if (this.ajax && ! this.ws_con)
                 this.connectToWebsocket()
 
             this.ajax = !this.ajax;
