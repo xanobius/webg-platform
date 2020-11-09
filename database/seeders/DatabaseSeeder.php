@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 //        $this->call(UserSeeder::class);
-        $this->call(MagicPatternSeeder::class);
         $this->call(WebGSeeder::class);
+        $this->call(MagicPatternSeeder::class);
         // User::factory(10)->create();
     }
 }

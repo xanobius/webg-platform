@@ -16,6 +16,7 @@ class WebGSeeder extends Seeder
     {
 
         $users = [
+            'Dozent',
             'Berglas & Eberhard',
             'Duenner',
             'Heule & Rapaport',
@@ -24,7 +25,6 @@ class WebGSeeder extends Seeder
             'v. Westendrop',
             'Halmi',
             'Thommen',
-            'Wirth'
         ];
 
         foreach($users as $u){
