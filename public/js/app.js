@@ -2075,6 +2075,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     pingFrequency: {
@@ -2100,6 +2103,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   data: function data() {
     return {
+      'question_state': 0,
       'ws_con': null,
       'ws_chats': [],
       'connected': false,
@@ -2179,6 +2183,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       if (!this.ajax) return;
       axios.get(this.getUrl).then(function (e) {
         _this2.messages = e.data.messages;
+        _this2.question_state = e.data.user.question_state;
 
         _this2.assignCssData(e.data.cssData);
 
@@ -44926,25 +44931,41 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "col-lg-5" }, [
+        _c("div", { staticClass: "group-icon" }, [
+          _vm.question_state == 0
+            ? _c("i", {
+                staticClass: "fa fa-question-circle",
+                attrs: { "aria-hidden": "true" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.question_state == 1
+            ? _c("i", {
+                staticClass: "fa fa-hourglass",
+                attrs: { "aria-hidden": "true" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.question_state == 2
+            ? _c("i", {
+                staticClass: "fa fa-check-circle",
+                attrs: { "aria-hidden": "true" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.question_state == 3
+            ? _c("i", {
+                staticClass: "fa fa-times-circle",
+                attrs: { "aria-hidden": "true" }
+              })
+            : _vm._e()
+        ])
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-5" }, [
-      _c("div", { staticClass: "group-icon" }, [
-        _c("i", {
-          staticClass: "fa fa-question-circle",
-          attrs: { "aria-hidden": "true" }
-        })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

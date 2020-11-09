@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">send</button>
+
+<script>
+    document.getElementById('btn').addEventListener('click', function(){
+        console.log('button clicked');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'http://webe-hs2020.ch.trendhosting.cloud/api/sendMessage', true);
+
+//Send the proper header information along with the request
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.setRequestHeader("Authorization", "Bearer 4AtEcHdf7s2KIVj");
+
+        xhr.onreadystatechange = function() { // Call a function when the state changes.
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                // Request finished. Do processing here.
+            }
+
+        }
+        xhr.send(JSON.stringify({"message" : "test 1212"}));
+// xhr.send(new Int8Array());
+// xhr.send(document);
+
+    })
+
+
+</script>
+
+</body>
+</html>

@@ -17,7 +17,10 @@
             </div>
             <div class="col-lg-5">
                 <div class="group-icon">
-                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                    <i v-if="question_state == 0" class="fa fa-question-circle" aria-hidden="true"></i>
+                    <i v-if="question_state == 1" class="fa fa-hourglass" aria-hidden="true"></i>
+                    <i v-if="question_state == 2" class="fa fa-check-circle" aria-hidden="true"></i>
+                    <i v-if="question_state == 3" class="fa fa-times-circle" aria-hidden="true"></i>
                 </div>
             </div>
         </div>
@@ -50,6 +53,7 @@ export default {
     },
     data() {
         return {
+            'question_state' : 0,
             'ws_con' : null,
             'ws_chats' : [],
             'connected' : false,
@@ -138,6 +142,7 @@ export default {
             if ( ! this.ajax)  return;
             axios.get(this.getUrl).then(e => {
                 this.messages = e.data.messages;
+                this.question_state = e.data.user.question_state;
                 this.assignCssData(e.data.cssData);
                 window.setTimeout(() => this.getChatMessage(), this.pingFrequency)
             }).catch(e => console.log(e.message))

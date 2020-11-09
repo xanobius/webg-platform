@@ -9,7 +9,7 @@ use App\Http\Requests\SetAnimationAttributeRequest;
 use App\Models\ChatMessage;
 use App\Models\CssSetting;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AjaxCommander extends Controller
 {
@@ -24,6 +24,12 @@ class AjaxCommander extends Controller
 
     public function getQuestion()
     {
+        $usr = Auth::user();
+        if($usr->question_state == 0){
+            $usr->question_state = 1;
+            $usr->save();
+        }
+
         return [
             'question' => 'Wie viele Cousinen und Cousins hat Hans',
             'name' => 'Hans',
@@ -66,10 +72,19 @@ class AjaxCommander extends Controller
 
     public function setAnswer(AnswerRequest $request)
     {
-        if($request->get('answer') == 9){
-            return 'correct';
+        $usr = Auth::user();
+        if($usr->question_state == 0){
+            return ["error" => "please get the question first..."];
+        }
+
+        if($request->get('answer') == 10){
+            $usr->question_state = 2;
+            $usr->save();
+            return ["success" => "Congratulations!"];
         } else{
-            return 'false';
+            $usr->question_state = 3;
+            $usr->save();
+            return ["error" => "wrong amount :-( Let's try again"];
         }
     }
 
@@ -115,6 +130,9 @@ class AjaxCommander extends Controller
     public function getAjaxData(User $user)
     {
         return [
+            'user' => [
+                'question_state' => $user->question_state
+            ],
             'messages' => $user->chatMessage()
                 ->orderBy('created_at', 'DESC')
                 ->limit(5)
