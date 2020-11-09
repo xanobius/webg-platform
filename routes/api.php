@@ -21,6 +21,8 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/setCssAttribute', [AjaxCommander::class, 'setAnimationAttribute']);
 
     Route::get('/getCssAttributes', [AjaxCommander::class, 'getAnimationAttributes']);
+    Route::get('/getQuestion', [AjaxCommander::class, 'getQuestion']);
+    Route::post('/answer', [AjaxCommander::class, 'setAnswer']);
 
     Route::get('/user', function (Request $request) {
         return $request->user();

@@ -6728,7 +6728,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".group-item[data-v-000a5a1d] {\n  background-color: #d7d6d6;\n  border: 1px solid #000000;\n  border-radius: 10px;\n  margin: 10px;\n  padding: 15px;\n}\n@media screen and (min-width: 992px) {\n.group-item[data-v-000a5a1d] {\n    height: 28vh;\n    overflow: hidden;\n}\n}\n.group-item__chat-message[data-v-000a5a1d] {\n  word-break: break-word;\n}\n.group-item__ball[data-v-000a5a1d] {\n  background-color: red;\n  width: 2rem;\n  height: 2rem;\n  border-radius: 1rem;\n  border: 1px solid #555555;\n  -webkit-animation-name: mtg-data-v-000a5a1d;\n          animation-name: mtg-data-v-000a5a1d;\n  -webkit-animation-duration: var(--ball_animation_duration);\n          animation-duration: var(--ball_animation_duration);\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n}\n.group-item__ball[data-v-000a5a1d]:hover {\n  background-color: var(--ball_hover_bg);\n}\n@-webkit-keyframes mtg-data-v-000a5a1d {\n0% {\n    background-color: var(--ball_bg);\n    margin-top: var(--ball_ver);\n    margin-left: var(--ball_hor);\n}\n20% {\n    background-color: var(--ball_color_20);\n    margin-top: var(--ball_ver_20);\n    margin-left: var(--ball_hor_20);\n}\n40% {\n    background-color: var(--ball_color_40);\n    margin-top: var(--ball_ver_40);\n    margin-left: var(--ball_hor_40);\n}\n60% {\n    background-color: var(--ball_color_60);\n    margin-top: var(--ball_ver_60);\n    margin-left: var(--ball_hor_60);\n}\n80% {\n    background-color: var(--ball_color_80);\n    margin-top: var(--ball_ver_80);\n    margin-left: var(--ball_hor_80);\n}\n100% {\n    background-color: var(--ball_bg);\n    margin-top: var(--ball_ver);\n    margin-left: var(--ball_hor);\n}\n}\n@keyframes mtg-data-v-000a5a1d {\n0% {\n    background-color: var(--ball_bg);\n    margin-top: var(--ball_ver);\n    margin-left: var(--ball_hor);\n}\n20% {\n    background-color: var(--ball_color_20);\n    margin-top: var(--ball_ver_20);\n    margin-left: var(--ball_hor_20);\n}\n40% {\n    background-color: var(--ball_color_40);\n    margin-top: var(--ball_ver_40);\n    margin-left: var(--ball_hor_40);\n}\n60% {\n    background-color: var(--ball_color_60);\n    margin-top: var(--ball_ver_60);\n    margin-left: var(--ball_hor_60);\n}\n80% {\n    background-color: var(--ball_color_80);\n    margin-top: var(--ball_ver_80);\n    margin-left: var(--ball_hor_80);\n}\n100% {\n    background-color: var(--ball_bg);\n    margin-top: var(--ball_ver);\n    margin-left: var(--ball_hor);\n}\n}\n.group-item .chat-item[data-v-000a5a1d] {\n  display: inline-block;\n  margin-right: 10px;\n}\n.group-item .chat-enter-active[data-v-000a5a1d], .group-item .chat-leave-active[data-v-000a5a1d] {\n  transition: all 1s;\n}\n.group-item .chat-enter[data-v-000a5a1d], .group-item .chat-leave-to[data-v-000a5a1d] {\n  opacity: 0;\n  transform: translateY(30px);\n}", ""]);
+exports.push([module.i, ".group-icon[data-v-000a5a1d] {\n  font-size: 3rem;\n  text-align: center;\n}\n.group-item[data-v-000a5a1d] {\n  background-color: #d7d6d6;\n  border: 1px solid #000000;\n  border-radius: 10px;\n  margin: 10px;\n  padding: 15px;\n}\n@media screen and (min-width: 992px) {\n.group-item[data-v-000a5a1d] {\n    height: 28vh;\n    overflow: hidden;\n}\n}\n.group-item__chat-message[data-v-000a5a1d] {\n  word-break: break-word;\n}\n.group-item__ball[data-v-000a5a1d] {\n  background-color: red;\n  width: 2rem;\n  height: 2rem;\n  border-radius: 1rem;\n  border: 1px solid #555555;\n  -webkit-animation-name: mtg-data-v-000a5a1d;\n          animation-name: mtg-data-v-000a5a1d;\n  -webkit-animation-duration: var(--ball_animation_duration);\n          animation-duration: var(--ball_animation_duration);\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n}\n.group-item__ball[data-v-000a5a1d]:hover {\n  background-color: var(--ball_hover_bg);\n}\n@-webkit-keyframes mtg-data-v-000a5a1d {\n0% {\n    background-color: var(--ball_bg);\n    margin-top: var(--ball_ver);\n    margin-left: var(--ball_hor);\n}\n20% {\n    background-color: var(--ball_color_20);\n    margin-top: var(--ball_ver_20);\n    margin-left: var(--ball_hor_20);\n}\n40% {\n    background-color: var(--ball_color_40);\n    margin-top: var(--ball_ver_40);\n    margin-left: var(--ball_hor_40);\n}\n60% {\n    background-color: var(--ball_color_60);\n    margin-top: var(--ball_ver_60);\n    margin-left: var(--ball_hor_60);\n}\n80% {\n    background-color: var(--ball_color_80);\n    margin-top: var(--ball_ver_80);\n    margin-left: var(--ball_hor_80);\n}\n100% {\n    background-color: var(--ball_bg);\n    margin-top: var(--ball_ver);\n    margin-left: var(--ball_hor);\n}\n}\n@keyframes mtg-data-v-000a5a1d {\n0% {\n    background-color: var(--ball_bg);\n    margin-top: var(--ball_ver);\n    margin-left: var(--ball_hor);\n}\n20% {\n    background-color: var(--ball_color_20);\n    margin-top: var(--ball_ver_20);\n    margin-left: var(--ball_hor_20);\n}\n40% {\n    background-color: var(--ball_color_40);\n    margin-top: var(--ball_ver_40);\n    margin-left: var(--ball_hor_40);\n}\n60% {\n    background-color: var(--ball_color_60);\n    margin-top: var(--ball_ver_60);\n    margin-left: var(--ball_hor_60);\n}\n80% {\n    background-color: var(--ball_color_80);\n    margin-top: var(--ball_ver_80);\n    margin-left: var(--ball_hor_80);\n}\n100% {\n    background-color: var(--ball_bg);\n    margin-top: var(--ball_ver);\n    margin-left: var(--ball_hor);\n}\n}\n.group-item .chat-item[data-v-000a5a1d] {\n  display: inline-block;\n  margin-right: 10px;\n}\n.group-item .chat-enter-active[data-v-000a5a1d], .group-item .chat-leave-active[data-v-000a5a1d] {\n  transition: all 1s;\n}\n.group-item .chat-enter[data-v-000a5a1d], .group-item .chat-leave-to[data-v-000a5a1d] {\n  opacity: 0;\n  transform: translateY(30px);\n}", ""]);
 
 // exports
 
@@ -44834,10 +44834,6 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-7" }, [
-        _c("div", { staticClass: "group-item__ball", style: _vm.style })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-5" }, [
         _c("div", { staticClass: "custom-control custom-switch" }, [
           _c("input", {
             directives: [
@@ -44928,11 +44924,27 @@ var render = function() {
           ],
           2
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-5" }, [
+      _c("div", { staticClass: "group-icon" }, [
+        _c("i", {
+          staticClass: "fa fa-question-circle",
+          attrs: { "aria-hidden": "true" }
+        })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

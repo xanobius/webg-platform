@@ -3,11 +3,6 @@
         <strong>{{ groupName }}</strong>
         <div class="row">
             <div class="col-lg-7">
-
-                <div class="group-item__ball" :style="style">
-                </div>
-            </div>
-            <div class="col-lg-5">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" :id="modeswitch_id" v-model="ajax" @click="modeChange">
                     <label class="custom-control-label" :for="modeswitch_id">
@@ -19,6 +14,11 @@
 
                     <li v-if="! ajax" v-for="msg in ws_chats" class="list-group-item group-item__chat-message chat-item">{{ msg }}</li>
                 </ul>
+            </div>
+            <div class="col-lg-5">
+                <div class="group-icon">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -166,6 +166,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+ .group-icon {
+     font-size: 3rem;
+     text-align: center;
+ }
  .group-item {
      background-color: #d7d6d6;
      border: 1px solid #000000;

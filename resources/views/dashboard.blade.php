@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1>WebE HS-2020 Group Dashboard</h1>
+        <h1>WebG HS-2020 Group Dashboard</h1>
         <div class="row">
             @foreach(\App\Models\User::get() as $usr)
                 <div class="col-lg-4">

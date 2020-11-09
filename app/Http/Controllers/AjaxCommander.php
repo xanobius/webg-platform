@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CssAttribute;
+use App\Http\Requests\AnswerRequest;
 use App\Http\Requests\ChatMessageRequest;
 use App\Http\Requests\SetAnimationAttributeRequest;
 use App\Models\ChatMessage;
@@ -21,6 +22,56 @@ class AjaxCommander extends Controller
         return response()->json(['success' => 1], 200);
     }
 
+    public function getQuestion()
+    {
+        return [
+            'question' => 'Wie viele Cousinen und Cousins hat Hans',
+            'name' => 'Hans',
+            'siblings' => [
+                'Maria',
+                'Peter'
+            ],
+            'father' => [
+                'name' => 'Achim',
+                'siblings' => [
+                    [
+                        'name' => 'Bruno',
+                        'children' => ['Efraim', 'Jaqueline']
+                    ],
+                    [
+                        'name' => 'Renja',
+                        'children' => []
+                    ]
+                ]
+            ],
+            'mother' => [
+                'name' => 'Anastasia',
+                'siblings' => [
+                    [
+                        'name' => 'Elfriede',
+                        'children' => ['Melanie', 'Samira', 'Livia', 'Ezekiel']
+                    ],
+                    [
+                        'name' => 'Thomas',
+                        'children' => ['Tomas der 2.', 'Serdar', 'Melekesh']
+                    ],
+                    [
+                        'name' => 'Susi',
+                        'children' => ['Anna']
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    public function setAnswer(AnswerRequest $request)
+    {
+        if($request->get('answer') == 9){
+            return 'correct';
+        } else{
+            return 'false';
+        }
+    }
 
     public function setAnimationAttribute(SetAnimationAttributeRequest $request)
     {
